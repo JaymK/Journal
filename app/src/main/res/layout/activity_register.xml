@@ -6,4 +6,49 @@
     android:layout_height="match_parent"
     tools:context=".auth.RegisterActivity">
 
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_reg_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/name" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_reg_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/r_email" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_reg_pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/r_password" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/reg_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="30dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/register"/>
+
 </android.support.constraint.ConstraintLayout>
