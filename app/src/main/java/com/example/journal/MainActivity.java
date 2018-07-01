@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +13,9 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
+import com.example.journal.auth.GoogleSignInActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -30,10 +33,33 @@ public class MainActivity extends AppCompatActivity {
 
     private DatabaseReference fEntryDatabase;
 
+    private FloatingActionButton logOutButton;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        logOutButton = findViewById(R.id.log_out_btn);
+        mAuth = FirebaseAuth.getInstance();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser() == null) {
+                    startActivity(new Intent(MainActivity.this, GoogleSignInActivity.class));
+                }
+            }
+        };
+
+        logOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAuth.signOut();
+            }
+        });
 
 
         mEntryList = findViewById(R.id.main_entries_list);
@@ -48,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         if (firebaseAuth.getCurrentUser() != null) {
-            fEntryDatabase = FirebaseDatabase.getInstance().getReference().child("Entry")
+            fEntryDatabase = FirebaseDatabase.getInstance().getReference().child("Entries")
                     .child(firebaseAuth.getCurrentUser().getUid());
         }
 
@@ -60,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         loadData();
+        mAuth.addAuthStateListener(mAuthListener);
 
     }
 
@@ -122,11 +149,6 @@ public class MainActivity extends AppCompatActivity {
     private void updateUI() {
         if (firebaseAuth.getCurrentUser() != null) {
             Log.i("MainActivity", "firebaseAuth:= null");
-        }else {
-            Intent startIntent = new Intent(MainActivity.this, StartActivity.class);
-            startActivity(startIntent);
-            finish();
-            Log.i("MainActivity", "firebaseAuth == null");
         }
     }
 
@@ -149,6 +171,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private int dpToPx(int dp) {

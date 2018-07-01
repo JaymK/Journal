@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         inputEmail = findViewById(R.id.input_log_email);
-        inputPassword =  findViewById(R.id.input_log_pass);
+        inputPassword = findViewById(R.id.input_log_pass);
         logInButton = findViewById(R.id.log_in_btn);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -42,12 +42,13 @@ public class LoginActivity extends AppCompatActivity {
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String l_Email =  inputEmail.getEditText().getText().toString().trim();
+                String l_Email = inputEmail.getEditText().getText().toString().trim();
                 String l_Pass = inputPassword.getEditText().getText().toString().trim();
                 login(l_Email, l_Pass);
             }
         });
     }
+
     private void login(final String email, String password) {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Logging you in....");
@@ -66,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                             finish();
                             Toast.makeText(LoginActivity.this, "Signed In",
                                     Toast.LENGTH_SHORT).show();
-                        }else{
+                        } else {
                             Toast.makeText(LoginActivity.this, "ERROR! "
                                     + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -78,11 +79,11 @@ public class LoginActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
         }
-        return  true;
+        return true;
     }
 }

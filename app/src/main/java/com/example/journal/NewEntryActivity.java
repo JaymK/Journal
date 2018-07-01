@@ -5,6 +5,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,7 +30,7 @@ import java.util.Objects;
 
 public class NewEntryActivity extends AppCompatActivity {
 
-    private Button btnCreate;
+    private Button createButton;
     private EditText etTitle, etContent;
     private Toolbar mToolbar;
 
@@ -65,7 +65,7 @@ public class NewEntryActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        btnCreate = findViewById(R.id.new_entry_btn);
+        createButton = findViewById(R.id.new_entry_btn);
         etTitle = findViewById(R.id.new_entry_title);
         etContent = findViewById(R.id.new_entry_content);
         mToolbar = findViewById(R.id.new_entry_toolbar);
@@ -79,7 +79,7 @@ public class NewEntryActivity extends AppCompatActivity {
         fEntryDatabase = FirebaseDatabase.getInstance().getReference().child("Entries").child
                 (Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
 
-        btnCreate.setOnClickListener(new View.OnClickListener() {
+        createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String title = etTitle.getText().toString().trim();
@@ -122,9 +122,9 @@ public class NewEntryActivity extends AppCompatActivity {
                 updateMap.put("title", etTitle.getText().toString().trim());
                 updateMap.put("content", etContent.getText().toString().trim());
                 updateMap.put("timestamp", ServerValue.TIMESTAMP);
-
                 fEntryDatabase.child(entryID).updateChildren(updateMap);
                 Toast.makeText(this, "Entry Updated", Toast.LENGTH_SHORT).show();
+                finish();
             } else {
                 final DatabaseReference newEntryRef = fEntryDatabase.push();
                 final Map entryMap = new HashMap();
@@ -145,7 +145,7 @@ public class NewEntryActivity extends AppCompatActivity {
                                     Toast.makeText(NewEntryActivity.this,
                                             "Entry Added Successfully",
                                             Toast.LENGTH_SHORT).show();
-
+                                    finish();
                                 } else {
                                     Toast.makeText(NewEntryActivity.this, "ERROR!" +
                                             task.getException().getMessage(), Toast.LENGTH_SHORT)

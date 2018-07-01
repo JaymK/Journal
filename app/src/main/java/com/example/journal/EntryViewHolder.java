@@ -15,9 +15,10 @@ public class EntryViewHolder extends RecyclerView.ViewHolder {
            super(itemView);
             mView = itemView;
             textTitle = mView.findViewById(R.id.entry_title);
-           textTime = mView.findViewById(R.id.entry_time);
-           entryCard = mView.findViewById(R.id.entry_card);
+            textTime = mView.findViewById(R.id.entry_time);
+            entryCard = mView.findViewById(R.id.entry_card);
         }
+
         public void setEntryTitle(String title) {
            textTitle.setText(title);
        }

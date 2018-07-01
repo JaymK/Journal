@@ -3,6 +3,7 @@ package com.example.journal.auth;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,7 +29,7 @@ public class GoogleSignInActivity extends AppCompatActivity {
 
     private SignInButton signInButton;
 
-    private  static final int RC_SIGN_IN = 8888;
+    private  static final int RC_SIGN_IN = 9001;
 
     private GoogleApiClient mGoogleApiClient;
 
@@ -56,7 +57,6 @@ public class GoogleSignInActivity extends AppCompatActivity {
 
         signInButton = findViewById(R.id.google_sign_in_btn);
 
-        // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -80,10 +80,7 @@ public class GoogleSignInActivity extends AppCompatActivity {
             }
         });
 
-
     }
-
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -100,7 +97,6 @@ public class GoogleSignInActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {

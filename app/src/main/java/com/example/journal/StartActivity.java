@@ -43,17 +43,6 @@ public class StartActivity extends AppCompatActivity {
 
     }
 
-    private void signin(){
-
-        signin_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                login();
-            }
-        });
-
-
-    }
 
     private void signup(){
         Intent signupIntent = new Intent(StartActivity.this, RegisterActivity.class);
