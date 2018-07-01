@@ -25,4 +25,9 @@
     <string name="register">Register</string>
     <string name="r_password">Password</string>
     <string name="r_email">Email</string>
+
+    <!--Strings related to start-->
+    <string name="sign_in">SIGN IN</string>
+    <string name="create_account">CREATE ACCOUNT</string>
+    <string name="welcome">Hey, welcome to Journal!</string>
 </resources>

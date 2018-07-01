@@ -24,17 +24,15 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp">
 
-        <android.support.design.widget.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/r_email" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/input_reg_pass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp">
+        android:layout_margin="5dp"
+        tools:layout_editor_absoluteX="5dp"
+        tools:layout_editor_absoluteY="75dp">
 
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
@@ -48,7 +46,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:layout_margin="30dp"
-        android:background="@color/colorPrimaryDark"
-        android:text="@string/register"/>
+        android:background="#006555"
+        android:text="@string/register"
+        tools:layout_editor_absoluteX="5dp"
+        tools:layout_editor_absoluteY="168dp" />
 
 </android.support.constraint.ConstraintLayout>
