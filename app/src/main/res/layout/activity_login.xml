@@ -42,6 +42,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="#006555"
+        android:fontFamily="sans-serif"
+        android:textColor="@android:color/white"
         android:text="@string/log_in"
         tools:layout_editor_absoluteX="4dp"
         tools:layout_editor_absoluteY="160dp" />

@@ -30,4 +30,11 @@
     <string name="sign_in">SIGN IN</string>
     <string name="create_account">CREATE ACCOUNT</string>
     <string name="welcome">Hey, welcome to Journal!</string>
+
+    <!--Strings related to newentryactivity-->
+    <string name="enter_title">Enter Title</string>
+    <string name="type_entry">Type Journal Entry</string>
+    <string name="post_entry">POST ENTRY</string>
+    <string name="entry_title">Entry Title</string>
+    <string name="updated_time">Updated Time</string>
 </resources>

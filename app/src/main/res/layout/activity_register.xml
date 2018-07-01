@@ -48,6 +48,7 @@
         android:layout_margin="30dp"
         android:background="#006555"
         android:text="@string/register"
+        android:textColor="@android:color/white"
         tools:layout_editor_absoluteX="5dp"
         tools:layout_editor_absoluteY="168dp" />
 
