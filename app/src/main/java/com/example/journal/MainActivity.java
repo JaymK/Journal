@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
         mEntryList = findViewById(R.id.main_entries_list);
 
-        gridLayoutManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
+        gridLayoutManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL,
+                false);
 
         mEntryList.setHasFixedSize(true);
         mEntryList.setLayoutManager(gridLayoutManager);
@@ -47,11 +48,11 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         if (firebaseAuth.getCurrentUser() != null) {
-            fEntryDatabase = FirebaseDatabase.getInstance().getReference().child("Entry").child(firebaseAuth.getCurrentUser().getUid());
+            fEntryDatabase = FirebaseDatabase.getInstance().getReference().child("Entry")
+                    .child(firebaseAuth.getCurrentUser().getUid());
         }
 
         updateUI();
-
 
     }
 
@@ -64,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadData() {
         Query query = fEntryDatabase.orderByChild("timestamp");
-        FirebaseRecyclerAdapter<EntryModel, EntryViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<EntryModel, EntryViewHolder>(
+        FirebaseRecyclerAdapter<EntryModel, EntryViewHolder> firebaseRecyclerAdapter = new
+                FirebaseRecyclerAdapter<EntryModel, EntryViewHolder>(
 
                 EntryModel.class,
                 R.layout.single_entry,
@@ -73,13 +75,15 @@ public class MainActivity extends AppCompatActivity {
 
         ) {
             @Override
-            protected void populateViewHolder(final EntryViewHolder viewHolder, EntryModel model, int position) {
+            protected void populateViewHolder(final EntryViewHolder viewHolder, EntryModel model,
+                                              int position) {
                 final String entryId = getRef(position).getKey();
 
                 fEntryDatabase.child(entryId).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.hasChild("title") && dataSnapshot.hasChild("timestamp")) {
+                        if (dataSnapshot.hasChild("title") && dataSnapshot
+                                .hasChild("timestamp")) {
                             String title = dataSnapshot.child("title").getValue().toString();
                             String timestamp = dataSnapshot.child("timestamp").getValue().toString();
 
@@ -87,12 +91,14 @@ public class MainActivity extends AppCompatActivity {
                             viewHolder.setEntryTime(timestamp);
 
                             GetPostTime getPostTime = new GetPostTime();
-                            viewHolder.setEntryTime(getPostTime.GetPostTime(Long.parseLong(timestamp), getApplicationContext()));
+                            viewHolder.setEntryTime(getPostTime.GetPostTime(Long.parseLong(timestamp),
+                                    getApplicationContext()));
 
                             viewHolder.entryCard.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    Intent intent = new Intent(MainActivity.this, NewEntryActivity.class);
+                                    Intent intent = new Intent(MainActivity.this,
+                                            NewEntryActivity.class);
                                     intent.putExtra("entryId", entryId);
                                     startActivity(intent);
                                 }
@@ -128,20 +134,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.main_menu, menu);
-//error - James StartActivity(startintent)
-        return true;
-        StartActivity(startIntent);
-        finish();
-        Log.i("MainActivity", "firebaseAuth == null");
-    }
-}
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-
         return true;
     }
 
@@ -161,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int dpToPx(int dp) {
         Resources r = getResources();
-        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                r.getDisplayMetrics()));
     }
 }
-
