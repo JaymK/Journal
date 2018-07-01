@@ -3,7 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <item android:id="@+id/main_new_entry_btn"
-            android:title="New Note"
-            android:icon="@drawable/ic_add_white_24dp"
+            android:title="New Entry"
+            android:icon="@drawable/ic_add"
             app:showAsAction="always"/>
     </menu>

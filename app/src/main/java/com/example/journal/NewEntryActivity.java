@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class NewEntryActivity extends AppCompatActivity {
 
@@ -76,7 +77,7 @@ public class NewEntryActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         fEntryDatabase = FirebaseDatabase.getInstance().getReference().child("Entries").child
-                (firebaseAuth.getCurrentUser().getUid());
+                (Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
 
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,12 +142,14 @@ public class NewEntryActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
 
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(NewEntryActivity.this, "Entry Added Successfully",
+                                    Toast.makeText(NewEntryActivity.this,
+                                            "Entry Added Successfully",
                                             Toast.LENGTH_SHORT).show();
 
                                 } else {
                                     Toast.makeText(NewEntryActivity.this, "ERROR!" +
-                                            task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                            task.getException().getMessage(), Toast.LENGTH_SHORT)
+                                            .show();
                                 }
                             }
                         });
@@ -172,38 +175,25 @@ public class NewEntryActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(this, "NOTHING TO DELETE", Toast.LENGTH_SHORT).show();
                 }
-                @Override
-                public boolean onOptionsItemSelected (MenuItem item){
-                super.onOptionsItemSelected(item);
-                switch (item.getItemId()) {
-                    case android.R.id.home:
-                        finish();
-                        break;
-                    case R.id.new_entry_delete_btn:
-                        if (isExist) {
-                            deleteEntry();
-                        } else {
-                            Toast.makeText(this, "NOTHING TO DELETE", Toast.LENGTH_SHORT).show();
-                        }
-                        break;
-                }
-                return true;
-            }
-            private void deleteEntry () {
-                fEntryDatabase.child(entryID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                break;
+        }
+        return true;
+    }
+    private void deleteEntry () {
+        fEntryDatabase.child(entryID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(NewEntryActivity.this, "Entry DELETED", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(NewEntryActivity.this, "ENTRY DELETED",
+                                    Toast.LENGTH_SHORT).show();
                             entryID = "no";
                             finish();
                         } else {
                             Log.e("NewEntryActivity", task.getException().toString());
-                            Toast.makeText(NewEntryActivity.this, "ERROR!  " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(NewEntryActivity.this, "ERROR!  " +
+                                    task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
-                });
-            }
-        }
+        });
     }
 }

@@ -73,37 +73,36 @@ public class RegisterActivity extends AppCompatActivity {
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
-
                                             if (task.isSuccessful()) {
-
                                                 progressDialog.dismiss();
 
-                                                Intent mainIntent = new Intent(RegisterActivity.this,
+                                                Intent mainIntent = new Intent(
+                                                        RegisterActivity.this,
                                                         MainActivity.class);
                                                 startActivity(mainIntent);
                                                 finish();
                                                 Toast.makeText(RegisterActivity.this,
-                                                        "Account Created", Toast.LENGTH_SHORT).show();
-
+                                                        "Account Created", Toast.LENGTH_SHORT)
+                                                        .show();
                                             }else {
                                                 progressDialog.dismiss();
-                                                Toast.makeText(RegisterActivity.this, "ERROR :" +
-                                                        " " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(RegisterActivity.this,
+                                                        "ERROR :" +
+                                                        " " + task.getException().getMessage(),
+                                                        Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     });
-
                         } else {
 
                             progressDialog.dismiss();
-                            Toast.makeText(RegisterActivity.this, "ERROR! " + task.getException().getMessage(),
+                            Toast.makeText(RegisterActivity.this, "ERROR! "
+                                            + task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);

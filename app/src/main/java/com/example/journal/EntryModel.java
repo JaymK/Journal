@@ -5,7 +5,6 @@ public class EntryModel {
     public String entryTitle;
     public String entryTime;
     public EntryModel() {
-
     }
 
     public EntryModel(String entryTitle, String entryTime) {

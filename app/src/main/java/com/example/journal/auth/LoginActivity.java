@@ -60,12 +60,15 @@ public class LoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
 
                         if (task.isSuccessful()) {
-                            Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                            Intent mainIntent = new Intent(LoginActivity.this,
+                                    MainActivity.class);
                             startActivity(mainIntent);
                             finish();
-                            Toast.makeText(LoginActivity.this, "Sign In Successful ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Signed In",
+                                    Toast.LENGTH_SHORT).show();
                         }else{
-                            Toast.makeText(LoginActivity.this, "ERROR! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "ERROR! "
+                                    + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
